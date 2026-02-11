@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import TodoStatusContainer from "./TodoStatusContainer";
 
@@ -11,7 +11,16 @@ import DeleteConfirmation from "./Deleteconfirmation";
 import Popup from "./Popup";
 
 const Todos = ({ currentView = "home" }) => {
-  const [todos, setTodos] = useState(todosList);
+  // Load todos from localStorage or use initial data
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem('todos');
+    return savedTodos ? JSON.parse(savedTodos) : todosList;
+  });
+
+  // Save todos to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const [newTodoFormData, setNewTodoFormData] = useState({
     title: "",
