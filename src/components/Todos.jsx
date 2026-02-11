@@ -35,7 +35,7 @@ const Todos = ({ currentView = "home" }) => {
 
   // Function to filter todos based on status
   const filterTodos = (status) => {
-    return todos.filter((todo) => todo.status === status);
+    return todos.filter((todo) => todo.status === status && todo.status !== "deleted");
   };
 
   // Handler for creating a new todo
@@ -80,8 +80,10 @@ const Todos = ({ currentView = "home" }) => {
 
   // Handler for deleting a todo
   const handleDeleteTodo = () => {
-    // Placeholder for API call to delete the todo in the backend
-    const updatedTodoList = todos.filter((todo) => todo.id !== deleteTodoID);
+    // Change the status of the todo to "deleted" instead of removing it
+    const updatedTodoList = todos.map(todo => 
+      todo.id === deleteTodoID ? { ...todo, status: "deleted" } : todo
+    );
 
     setTodos(updatedTodoList);
     setDeleteTodoID(null);
