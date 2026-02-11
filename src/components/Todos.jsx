@@ -32,6 +32,9 @@ const Todos = ({ currentView = "home" }) => {
 
   const [deleteTodoID, setDeleteTodoID] = useState(null);
   const [deleteTaskConfirmation, setDeleteTaskConfirmation] = useState(false);
+  
+  const [permanentDeleteID, setPermanentDeleteID] = useState(null);
+  const [permanentDeleteConfirmation, setPermanentDeleteConfirmation] = useState(false);
 
   // Function to filter todos based on status
   const filterTodos = (status) => {
@@ -109,6 +112,20 @@ const Todos = ({ currentView = "home" }) => {
     return todos.filter((todo) => todo.status === "deleted");
   };
 
+  // Handler for showing permanent delete confirmation
+  const showPermanentDeleteConfirmation = (id) => {
+    setPermanentDeleteID(id);
+    setPermanentDeleteConfirmation(true);
+  };
+
+  // Handler for permanently deleting a todo
+  const handlePermanentDelete = () => {
+    const updatedTodoList = todos.filter((todo) => todo.id !== permanentDeleteID);
+    setTodos(updatedTodoList);
+    setPermanentDeleteID(null);
+    setPermanentDeleteConfirmation(false);
+  };
+
   return (
     <>
       <div id="title" className="text-stone-500 text-4xl font-black my-12">
@@ -143,6 +160,14 @@ const Todos = ({ currentView = "home" }) => {
                   >
                     <div className="text-base font-medium my-2">{title}</div>
                     <div className="text-sm text-gray-800 mb-6">{description}</div>
+                    <div className="text-right">
+                      <button 
+                        onClick={() => showPermanentDeleteConfirmation(id)}
+                        className="text-red-600 hover:text-red-800 font-medium"
+                      >
+                        Permanently Delete
+                      </button>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -222,6 +247,16 @@ const Todos = ({ currentView = "home" }) => {
         <DeleteConfirmation
           onConfirm={handleDeleteTodo}
           onCancel={() => setDeleteTaskConfirmation(false)}
+        />
+      )}
+      
+      {/* Permanent Delete Confirmation Popup */}
+      {permanentDeleteConfirmation && (
+        <DeleteConfirmation
+          title="Permanently Delete Task?"
+          message="This action cannot be undone. The task will be permanently removed."
+          onConfirm={handlePermanentDelete}
+          onCancel={() => setPermanentDeleteConfirmation(false)}
         />
       )}
     </>
