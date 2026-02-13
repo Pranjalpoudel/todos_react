@@ -137,7 +137,7 @@ const Todos = ({ currentView = "home" }) => {
 
   return (
     <>
-      <div id="title" className="text-stone-500 text-4xl font-black my-12">
+      <div id="title" className="text-stone-500 text-2xl md:text-4xl font-black my-6 md:my-12">
         {currentView === "deleted" ? "Deleted Tasks" : (
           <>
             Organize your <span className="text-black">To-Dos</span>
@@ -147,7 +147,7 @@ const Todos = ({ currentView = "home" }) => {
       
       {currentView === "deleted" ? (
         <div className="flex justify-center">
-          <div className="shadow-2xl rounded-[5rem] bg-white px-12 py-10 w-full max-w-3xl">
+          <div className="shadow-2xl rounded-[5rem] bg-white px-6 md:px-12 py-6 md:py-10 w-full max-w-3xl">
             <div className="flex space-x-2 my-3 mb-6">
               <div className="flex justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 bg-red-200 p-2 rounded-md">
@@ -189,7 +189,7 @@ const Todos = ({ currentView = "home" }) => {
         </div>
       ) : (
         <>
-          <div className="flex space-x-16">
+          <div className="flex flex-col md:flex-row md:space-x-16 space-y-8 md:space-y-0">
             <TodoStatusContainer
               title="Ongoing"
               todos={filterTodos("ongoing")}
@@ -217,9 +217,9 @@ const Todos = ({ currentView = "home" }) => {
               onEdit={showEditTodo}
             />
           </div>
-          <div className="flex justify-center items-center mt-16">
+          <div className="flex justify-center items-center mt-8 md:mt-16">
             <div
-              className="bg-blue-500 text-white text-xl rounded-3xl p-8 py-3 font-semibold tracking-wide flex justify-center items-center gap-4 cursor-pointer shadow-2xl"
+              className="bg-blue-500 text-white text-lg md:text-xl rounded-3xl p-4 md:p-8 py-2 md:py-3 font-semibold tracking-wide flex justify-center items-center gap-4 cursor-pointer shadow-2xl"
               onClick={() => setIsCreateTodoActive(true)}
             >
               Add a Task{" "}

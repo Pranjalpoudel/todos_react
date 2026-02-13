@@ -18,7 +18,7 @@ const NavBar = ({ onViewChange }) => {
   };
 
   return (
-    <div className="flex text-xl font-medium space-x-8 text-gray-600">
+    <div className="flex text-lg md:text-xl font-medium space-x-4 md:space-x-8 text-gray-600">
       <div 
         className={`cursor-pointer ${activeView === "home" ? "underline decoration-[#578EFB] decoration-[6px] underline-offset-8 text-black" : ""}`}
         onClick={handleHomeClick}
