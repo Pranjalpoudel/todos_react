@@ -10,7 +10,7 @@ import { todosList } from "../assets/json/todos.json";
 import DeleteConfirmation from "./Deleteconfirmation";
 import Popup from "./Popup";
 
-const Todos = ({ currentView = "home" }) => {
+const Todos = ({ currentView = "home", isDarkMode = true }) => {
   // Load todos from localStorage or use initial data
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
@@ -137,17 +137,17 @@ const Todos = ({ currentView = "home" }) => {
 
   return (
     <>
-      <div id="title" className="text-stone-500 text-2xl md:text-4xl font-black my-6 md:my-12">
+      <div id="title" className={`text-2xl md:text-4xl font-black my-6 md:my-12 ${isDarkMode ? 'text-gray-200' : 'text-stone-500'}`}>
         {currentView === "deleted" ? "Deleted Tasks" : (
           <>
-            Organize your <span className="text-black">To-Dos</span>
+            Organize your <span className={isDarkMode ? 'text-blue-400' : 'text-black'}>To-Dos</span>
           </>
         )}
       </div>
       
       {currentView === "deleted" ? (
         <div className="flex justify-center">
-          <div className="shadow-2xl rounded-[5rem] bg-white px-6 md:px-12 py-6 md:py-10 w-full max-w-3xl">
+          <div className={`shadow-2xl rounded-[5rem] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-white text-black'} px-6 md:px-12 py-6 md:py-10 w-full max-w-3xl transition-colors duration-300`}>
             <div className="flex space-x-2 my-3 mb-6">
               <div className="flex justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500 bg-red-200 p-2 rounded-md">
@@ -165,14 +165,14 @@ const Todos = ({ currentView = "home" }) => {
                 filterDeletedTodos().map(({ id, title, description }) => (
                   <div
                     key={id}
-                    className="bg-red-50 rounded-3xl p-4 px-6"
+                    className={`rounded-3xl p-4 px-6 ${isDarkMode ? 'bg-red-900/30 border border-red-700' : 'bg-red-50'}`}
                   >
                     <div className="text-base font-medium my-2">{title}</div>
-                    <div className="text-sm text-gray-800 mb-6">{description}</div>
+                    <div className={`text-sm mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>{description}</div>
                     <div className="text-right">
                       <button 
                         onClick={() => showPermanentDeleteConfirmation(id)}
-                        className="text-red-600 hover:text-red-800 font-medium"
+                        className={`font-medium transition-colors duration-200 ${isDarkMode ? 'text-red-400 hover:text-red-300' : 'text-red-600 hover:text-red-800'}`}
                       >
                         Permanently Delete
                       </button>
@@ -202,6 +202,7 @@ const Todos = ({ currentView = "home" }) => {
               onDelete={showDeleteConfirmation}
               onChecked={handleCheckedTodo}
               onEdit={showEditTodo}
+              isDarkMode={isDarkMode}
             />
             <TodoStatusContainer
               title="Completed"
@@ -215,11 +216,12 @@ const Todos = ({ currentView = "home" }) => {
               onDelete={showDeleteConfirmation}
               onChecked={handleCheckedTodo}
               onEdit={showEditTodo}
+              isDarkMode={isDarkMode}
             />
           </div>
           <div className="flex justify-center items-center mt-8 md:mt-16">
             <div
-              className="bg-blue-500 text-white text-lg md:text-xl rounded-3xl p-4 md:p-8 py-2 md:py-3 font-semibold tracking-wide flex justify-center items-center gap-4 cursor-pointer shadow-2xl"
+              className={`text-white text-lg md:text-xl rounded-3xl p-4 md:p-8 py-2 md:py-3 font-semibold tracking-wide flex justify-center items-center gap-4 cursor-pointer shadow-2xl transition-all duration-300 ${isDarkMode ? 'bg-gradient-to-r from-blue-600 to-blue-500 hover:shadow-blue-500/50' : 'bg-blue-500 hover:bg-blue-600'}`}
               onClick={() => setIsCreateTodoActive(true)}
             >
               Add a Task{" "}

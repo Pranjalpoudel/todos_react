@@ -11,9 +11,10 @@ const TodoStatusContainer = ({
   onDelete,
   onChecked,
   onEdit,
+  isDarkMode,
 }) => {
   return (
-    <div className="shadow-2xl rounded-[5rem] bg-white px-6 md:px-12 py-6 md:py-10 w-full md:w-1/2 h-fit">
+    <div className={`shadow-2xl rounded-[5rem] ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-white text-black'} px-6 md:px-12 py-6 md:py-10 w-full md:w-1/2 h-fit transition-colors duration-300`}>
       <div className="flex space-x-2 my-3 mb-6">
         <div className="flex justify-center items-center">{icon}</div>
         <div className="flex justify-center items-center text-xl font-semibold tracking-wide">
@@ -25,19 +26,21 @@ const TodoStatusContainer = ({
           return (
             <div
               key={id}
-              className={`${
-                status == "ongoing" ? "bg-[#FFAA041A]" : "bg-[#E6FAEA]"
-              } rounded-3xl p-4 px-6`}
+              className={`rounded-3xl p-4 px-6 transition-colors duration-300 ${
+                status == "ongoing" 
+                  ? isDarkMode ? "bg-yellow-900/30 border border-yellow-700" : "bg-[#FFAA041A]"
+                  : isDarkMode ? "bg-green-900/30 border border-green-700" : "bg-[#E6FAEA]"
+              }`}
             >
               <div className="text-base font-medium my-2">{title}</div>
-              <div className="text-sm text-gray-800 mb-6">{description}</div>
-              <div className="text-[#B3B7EE] text-2xl flex space-x-6 justify-end">
+              <div className={`text-sm mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>{description}</div>
+              <div className={`text-2xl flex space-x-6 justify-end ${isDarkMode ? 'text-gray-400' : 'text-[#B3B7EE]'}`}>
                 <GrEdit
-                  className="cursor-pointer hover:text-blue-500"
+                  className={`cursor-pointer transition-colors duration-200 ${isDarkMode ? 'hover:text-blue-400' : 'hover:text-blue-500'}`}
                   onClick={() => onEdit(id)}
                 />
                 <RiDeleteBinLine
-                  className="cursor-pointer hover:text-red-500"
+                  className={`cursor-pointer transition-colors duration-200 ${isDarkMode ? 'hover:text-red-400' : 'hover:text-red-500'}`}
                   onClick={() => onDelete(id)}
                 />
                 <FaRegCircleCheck

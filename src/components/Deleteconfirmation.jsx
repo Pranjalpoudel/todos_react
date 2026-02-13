@@ -4,7 +4,7 @@ const DeleteConfirmation = ({ onConfirm, onCancel, title = "Delete Task?", messa
   <div className="fixed inset-0 z-50">
     <div className="bg-[#00000088] w-screen h-screen flex justify-center items-center">
       <div className="bg-white px-8 md:px-16 py-8 md:py-12 rounded-[45px] flex flex-col space-y-8 md:space-y-12 justify-center items-center shadow-lg w-full max-w-sm mx-4">
-        <div className="text-4xl font-semibold tracking-wide">
+        <div className="text-2xl md:text-4xl font-semibold tracking-wide">
           <span className="text-stone-500">{title}</span>
         </div>
         {message && (
