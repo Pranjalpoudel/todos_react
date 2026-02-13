@@ -24,8 +24,8 @@ const App = () => {
   }, [isDarkMode]);
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'}`}>
-      <div className="mx-4 md:mx-32 my-4 md:my-10">
+    <div className={`w-full min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'}`}>
+      <div className="mx-4 md:mx-32 py-4 md:py-10">
         <div className="flex justify-between items-center mb-8">
           <div></div>
           <button
